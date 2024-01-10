@@ -8,7 +8,7 @@ RUN apk --no-cache add maven openjdk8
 COPY . /application
 RUN mvn clean package -DskipTests=true
 
-ENV JAR_FILE_NAME=config-server-0.0.1-SNAPSHOT-exec.jar
+ENV JAR_FILE_NAME=shoppingcart-ui-0.0.1-SNAPSHOT-exec.jar
 RUN cp /application/target/$JAR_FILE_NAME app-new.jar
 
 ENV JAVA_APP_JAR=app-new.jar
