@@ -1,10 +1,10 @@
 pipeline {
     agent any
-        environment {
+    environment {
         // Define timestamp variable at the top-level environment block
         TIMESTAMP = sh(script: "date +'%b-%d-t-%H-%M'", returnStdout: true).trim()
     }
-     stages {
+    stages {
         stage('Cloning the repo') {
             steps {
                 script {
@@ -53,7 +53,7 @@ pipeline {
                 }
             }
         }
-    stages {
+        
         stage('Update values.yaml') {
             steps {
                 script {
