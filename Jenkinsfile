@@ -4,15 +4,6 @@ pipeline {
         // Define timestamp variable at the top-level environment block
         TIMESTAMP = sh(script: "date +'%b-%d-t-%H-%M'", returnStdout: true).trim()
     }
-    stages {
-        stage('Cloning the repo') {
-            steps {
-                script {
-                    // Clone the repository
-                    git branch: 'main', url: 'https://github.com/amanravi-squareops/shoppingcart-ui'
-                }
-            }
-        }
         
         stage('kaniko build & push') {
             agent {
@@ -45,6 +36,7 @@ pipeline {
                     script {
                         // Use TIMESTAMP variable instead of defining a new one
                         sh """
+                        git branch: 'main', url: 'https://github.com/amanravi-squareops/shoppingcart-ui'
                         /kaniko/executor --dockerfile /Dockerfile \
                         --context=\$(pwd) \
                         --destination=amanravi12/shoppingcart-ui:build-${BUILD_NUMBER}-${TIMESTAMP}
@@ -72,7 +64,6 @@ pipeline {
                     git push origin main
                     '''
                 }
-            }
-        }
+         }
     }
 }
