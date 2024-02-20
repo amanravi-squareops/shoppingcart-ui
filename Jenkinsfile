@@ -5,6 +5,7 @@ pipeline {
         TIMESTAMP = sh(script: "date +'%b-%d-t-%H-%M'", returnStdout: true).trim()
     }
         
+    stages {
         stage('kaniko build & push') {
             agent {
                 kubernetes {
@@ -36,9 +37,9 @@ pipeline {
                     script {
                         // Use TIMESTAMP variable instead of defining a new one
                         sh """
-                        git branch: 'main', url: 'https://github.com/amanravi-squareops/shoppingcart-ui'
+                        git clone -b main https://github.com/amanravi-squareops/shoppingcart-ui
                         /kaniko/executor --dockerfile /Dockerfile \
-                        --context=\$(pwd) \
+                        --context=\$(pwd)/shoppingcart-ui \
                         --destination=amanravi12/shoppingcart-ui:build-${BUILD_NUMBER}-${TIMESTAMP}
                         """
                     }
@@ -64,6 +65,7 @@ pipeline {
                     git push origin main
                     '''
                 }
-         }
+            }
+        }
     }
 }
