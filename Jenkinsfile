@@ -64,7 +64,7 @@ pipeline {
                         url: "https://${USERNAME}:${PASSWORD}@github.com/amanravi-squareops/springboot-helm.git"
                     }
                     sh '''
-                    cd shoppingcart-ui
+                    cd shopping-cart
                     sed -i "s/tag: .*/tag: build-${BUILD_NUMBER}-${TIMESTAMP}/" values.yaml
                     cat values.yaml
                     git config --global user.email "aman.ravi@squareops.com"
